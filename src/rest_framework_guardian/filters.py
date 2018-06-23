@@ -1,0 +1,32 @@
+from django.conf import settings
+from rest_framework.filters import BaseFilterBackend
+
+
+class DjangoObjectPermissionsFilter(BaseFilterBackend):
+    """
+    A filter backend that limits results to those where the requesting user
+    has read object level permissions.
+    """
+    perm_format = '%(app_label)s.view_%(model_name)s'
+
+    def __init__(self):
+        assert 'guardian' in settings.INSTALLED_APPS, (
+            'Using DjangoObjectPermissionsFilter, '
+            'but django-guardian is not installed.')
+
+    def filter_queryset(self, request, queryset, view):
+        # We want to defer this import until runtime, rather than import-time.
+        # See https://github.com/encode/django-rest-framework/issues/4608
+        # (Also see #1624 for why we need to make this import explicitly)
+        from guardian.shortcuts import get_objects_for_user
+
+        user = request.user
+        permission = self.perm_format % {
+            'app_label': queryset.model._meta.app_label,
+            'model_name': queryset.model._meta.model_name,
+        }
+
+        return get_objects_for_user(
+            user, permission, queryset,
+            accept_global_perms=False,
+        )
