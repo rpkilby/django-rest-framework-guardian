@@ -14,10 +14,12 @@ matrix:
       - env: TOXENV=warnings
 
     include:
-      - env: TOXENV="lint,isort"
-        script: pip install -U tox tox-venv
+      - python: "3.6"
+        env: TOXENV="lint,isort"
 
-      - env: TOXENV=coverage
+      - python: "3.6"
+        env: TOXENV=coverage
+        script: tox
         after_success:
             - pip install codecov && codecov
 
