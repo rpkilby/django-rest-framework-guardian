@@ -91,3 +91,16 @@ For more information on adding `'view'` permissions for models, see the [relevan
 
 [view-permissions]: https://django-guardian.readthedocs.io/en/latest/userguide/assign.html
 [view-permissions-blogpost]: https://blog.nyaruka.com/adding-a-view-permission-to-django-models
+
+## Release Process
+
+- Update changelog
+- Update package version in setup.py
+- Create git tag for version
+- Build & upload release to PyPI
+  ```bash
+  $ pip install -U pip setuptools wheel twine
+  $ rm -rf dist/ build/
+  $ python setup.py bdist_wheel
+  $ twine upload dist/*
+  ```
