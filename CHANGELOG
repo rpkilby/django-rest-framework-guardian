@@ -1,6 +1,8 @@
 Unreleased
 ==========
 
+- Allow `get_objects_for_user` keyword arguments to be overridden.
+
 0.1.0 (2018-07-09)
 ==================
 
