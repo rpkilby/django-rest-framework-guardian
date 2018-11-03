@@ -8,6 +8,9 @@ class DjangoObjectPermissionsFilter(BaseFilterBackend):
     has read object level permissions.
     """
     perm_format = '%(app_label)s.view_%(model_name)s'
+    shortcut_kwargs = {
+        'accept_global_perms': False,
+    }
 
     def __init__(self):
         assert 'guardian' in settings.INSTALLED_APPS, (
@@ -28,5 +31,4 @@ class DjangoObjectPermissionsFilter(BaseFilterBackend):
 
         return get_objects_for_user(
             user, permission, queryset,
-            accept_global_perms=False,
-        )
+            **self.shortcut_kwargs)
