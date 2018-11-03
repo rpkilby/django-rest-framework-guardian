@@ -10,7 +10,7 @@ def read(filename):
 
 setup(
     name='djangorestframework-guardian',
-    version='0.1.0',
+    version='0.1.1',
     author='Ryan P Kilby',
     url='https://github.com/rpkilby/django-rest-framework-guardian',
     description='django-guardian support for Django REST Framework',

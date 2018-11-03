@@ -1,7 +1,11 @@
 Unreleased
 ==========
 
+0.1.1 (2018-11-02)
+==================
+
 - Allow `get_objects_for_user` keyword arguments to be overridden.
+- Ensure Python 3.7 compatibility
 
 0.1.0 (2018-07-09)
 ==================
