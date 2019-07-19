@@ -86,10 +86,15 @@ class EventViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoObjectPermissionsFilter,)
 ```
 
-For more information on adding `'view'` permissions for models, see the [relevant section][view-permissions] of the
-`django-guardian` documentation, and [this blogpost][view-permissions-blogpost].
+If you are using Django 2.1+, there is nothing more that needs to be done.
+[Django 2.1 added `'view'` permissions][django-21-release] to the default `Model` permissions.
 
-[view-permissions]: https://django-guardian.readthedocs.io/en/latest/userguide/assign.html
+If you are using Django <2.1, for more information on manually adding `'view'` permissions for models,
+see the [relevant section][view-permissions] of the `django-guardian` documentation, and
+[this blogpost][view-permissions-blogpost].
+
+[django-21-release]: https://docs.djangoproject.com/en/stable/releases/2.1/#model-view-permission
+[view-permissions]: https://django-guardian.readthedocs.io/en/v1.5.0/userguide/assign.html
 [view-permissions-blogpost]: https://blog.nyaruka.com/adding-a-view-permission-to-django-models
 
 ## Release Process
