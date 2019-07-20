@@ -10,10 +10,10 @@ DEBUG = True
 
 ANONYMOUS_USER_ID = -1
 
-AUTHENTICATION_BACKENDS = (
+AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'guardian.backends.ObjectPermissionBackend',
-)
+]
 
 INSTALLED_APPS = [
     'django.contrib.auth',

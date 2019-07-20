@@ -26,10 +26,10 @@ INSTALLED_APPS = [
     'guardian',
 ]
 
-AUTHENTICATION_BACKENDS = (
+AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'guardian.backends.ObjectPermissionBackend',
-)
+]
 ```
 
 
@@ -83,8 +83,8 @@ class EventViewSet(viewsets.ModelViewSet):
     """
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    permission_classes = (CustomObjectPermissions,)
-    filter_backends = (filters.DjangoObjectPermissionsFilter,)
+    permission_classes = [CustomObjectPermissions]
+    filter_backends = [filters.DjangoObjectPermissionsFilter]
 ```
 
 ## Release Process
