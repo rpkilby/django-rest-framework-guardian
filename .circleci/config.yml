@@ -89,10 +89,6 @@ workflows:
           requires:
             - lint
 
-      - test-py27:
-          requires:
-            - lint
-
   weekly:
     <<: *test-workflow
     triggers:
