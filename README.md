@@ -1,9 +1,10 @@
 # django-rest-framework-guardian
 
-[![Build Status](https://travis-ci.org/rpkilby/django-rest-framework-guardian.svg?branch=master)](https://travis-ci.org/rpkilby/django-rest-framework-guardian)
+[![CircleCI](https://circleci.com/gh/rpkilby/django-rest-framework-guardian.svg?style=shield)](https://circleci.com/gh/rpkilby/django-rest-framework-guardian)
 [![Codecov](https://codecov.io/gh/rpkilby/django-rest-framework-guardian/branch/master/graph/badge.svg)](https://codecov.io/gh/rpkilby/django-rest-framework-guardian)
-[![Version](https://img.shields.io/pypi/v/djangorestframework-guardian.svg)](https://pypi.org/project/djangorestframework-guardian)
 [![License](https://img.shields.io/pypi/l/djangorestframework-guardian.svg)](https://pypi.org/project/djangorestframework-guardian)
+[![Version](https://img.shields.io/pypi/v/djangorestframework-guardian.svg)](https://pypi.org/project/djangorestframework-guardian)
+[![Python](https://img.shields.io/pypi/pyversions/djangorestframework-guardian.svg)](https://pypi.org/project/djangorestframework-guardian/)
 
 django-rest-framework-guardian provides django-guardian integrations for Django REST Framework.
 Currently, this only includes the `DjangoObjectPermissionsFilter`.
@@ -104,3 +105,7 @@ For more information on adding `'view'` permissions for models, see the [relevan
   $ python setup.py bdist_wheel
   $ twine upload dist/*
   ```
+
+## License
+
+See: [LICENSE](https://github.com/rpkilby/django-rest-framework-guardian/blob/master/LICENSE)
