@@ -1,4 +1,3 @@
-import django
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -12,8 +11,3 @@ class BasicPermModel(models.Model):
 
     class Meta:
         app_label = 'tests'
-        if django.VERSION < (2, 1):
-            permissions = (
-                # add, change, and delete are builtin permissions
-                ('view_basicpermmodel', 'Can view basic perm model'),
-            )

@@ -67,13 +67,6 @@ jobs:
     environment:
       TOXENV: py35
 
-  test-py27:
-    <<: *test-steps
-    docker:
-      - image: circleci/python:2.7
-    environment:
-      TOXENV: py27
-
 
 workflows:
   version: 2
