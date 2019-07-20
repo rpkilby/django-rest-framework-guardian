@@ -1,6 +1,13 @@
 Unreleased
 ==========
 
+0.2.0 (2019-07-19)
+==================
+
+- Add Django 2.2 support
+- Drop Django 1.1 & 2.1 support
+- Drop Python 2.7 & 3.4 support
+
 0.1.1 (2018-11-02)
 ==================
 
