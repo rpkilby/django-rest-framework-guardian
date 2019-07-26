@@ -17,7 +17,7 @@ class DjangoGuardianObjectPermissionsAssigner(Serializer):
     """
 
     def __init__(self, *args, **kwargs):
-        super(DjangoGuardianObjectPermissionsAssigner, self).__init__(
+        super().__init__(
             *args,
             **kwargs,
         )
@@ -37,7 +37,7 @@ class DjangoGuardianObjectPermissionsAssigner(Serializer):
     def save(self, **kwargs):
         created = self.instance is not None
 
-        super(DjangoGuardianObjectPermissionsAssigner, self).save(**kwargs)
+        super().save(**kwargs)
 
         self._handle_permissions(created)
 
