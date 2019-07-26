@@ -87,6 +87,45 @@ class EventViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.DjangoObjectPermissionsFilter]
 ```
 
+
+
+
+
+
+## DjangoGuardianObjectPermissionsAssigner
+
+A serializer mixin that allows permissions to be easily assigned to users and/or groups.
+So each time an object is created or updated, the `permissions_map` returned by `Serializer.get_permissions_map` will be used to assign permission to that project.
+
+Please note that the existing permissions will remain intact.
+
+A usage example might look like the following:
+
+```python
+from rest_framework_guardian.serializers import DjangoGuardianObjectPermissionsAssigner
+
+from blog.models import Post
+
+
+class BasicSerializer(DjangoGuardianObjectPermissionsAssigner serializers.ModelSerializer):
+    class Meta:
+        model = Note
+        fields = '__all__'
+
+    def get_permissions_map(self, created):
+        current_user = self.context['request'].user
+        readers = Group.objects.get(name='readers')
+        supervisors = Group.objects.get(name='supervisors')
+
+        return {
+            'view_post': [current_user, readers],
+            'change_post': [current_user],
+            'delete_post': [current_user, supervisors]
+        }
+
+```
+
+
 ## Release Process
 
 - Update changelog
