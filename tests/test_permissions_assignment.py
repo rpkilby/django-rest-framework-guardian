@@ -1,12 +1,13 @@
 
 from django.contrib.auth.models import Group, User
 from django.test import TestCase
-from rest_framework import authentication, permissions, serializers, status, viewsets
+from rest_framework import authentication, serializers, status, viewsets
 from rest_framework.test import APIRequestFactory
 
 from rest_framework_guardian.filters import DjangoObjectPermissionsFilter
 from rest_framework_guardian.serializers import DjangoGuardianObjectPermissionsAssigner
 from tests.models import BasicModel
+from tests.permissions import ViewObjectPermissions
 from tests.utils import basic_auth_header
 
 
@@ -28,19 +29,6 @@ class BasicSerializer(
             'view_%s' % BasicModel._meta.model_name: [current_user, readers],
             'change_%s' % BasicModel._meta.model_name: [current_user],
         }
-
-
-# Custom object-level permission, that includes 'view' permissions
-class ViewObjectPermissions(permissions.DjangoObjectPermissions):
-    perms_map = {
-        'GET': ['%(app_label)s.view_%(model_name)s'],
-        'OPTIONS': ['%(app_label)s.view_%(model_name)s'],
-        'HEAD': ['%(app_label)s.view_%(model_name)s'],
-        'POST': ['%(app_label)s.add_%(model_name)s'],
-        'PUT': ['%(app_label)s.change_%(model_name)s'],
-        'PATCH': ['%(app_label)s.change_%(model_name)s'],
-        'DELETE': ['%(app_label)s.delete_%(model_name)s'],
-    }
 
 
 class BasicViewSet(viewsets.ModelViewSet):

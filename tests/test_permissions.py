@@ -1,10 +1,11 @@
 from django.contrib.auth.models import Group, User
 from django.test import TestCase
-from rest_framework import authentication, generics, permissions, serializers, status
+from rest_framework import authentication, generics, serializers, status
 from rest_framework.test import APIRequestFactory
 
 from rest_framework_guardian.filters import DjangoObjectPermissionsFilter
 from tests.models import BasicModel, BasicPermModel
+from tests.permissions import ViewObjectPermissions
 from tests.utils import basic_auth_header
 
 
@@ -21,19 +22,6 @@ class BasicPermSerializer(serializers.ModelSerializer):
     class Meta:
         model = BasicPermModel
         fields = '__all__'
-
-
-# Custom object-level permission, that includes 'view' permissions
-class ViewObjectPermissions(permissions.DjangoObjectPermissions):
-    perms_map = {
-        'GET': ['%(app_label)s.view_%(model_name)s'],
-        'OPTIONS': ['%(app_label)s.view_%(model_name)s'],
-        'HEAD': ['%(app_label)s.view_%(model_name)s'],
-        'POST': ['%(app_label)s.add_%(model_name)s'],
-        'PUT': ['%(app_label)s.change_%(model_name)s'],
-        'PATCH': ['%(app_label)s.change_%(model_name)s'],
-        'DELETE': ['%(app_label)s.delete_%(model_name)s'],
-    }
 
 
 class ObjectPermissionInstanceView(generics.RetrieveUpdateDestroyAPIView):
