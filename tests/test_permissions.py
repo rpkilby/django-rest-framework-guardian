@@ -1,13 +1,11 @@
-import base64
-
 from django.contrib.auth.models import Group, User
 from django.test import TestCase
-from rest_framework import (
-    HTTP_HEADER_ENCODING, authentication, generics, permissions, serializers, status)
+from rest_framework import authentication, generics, permissions, serializers, status
 from rest_framework.test import APIRequestFactory
 
 from rest_framework_guardian.filters import DjangoObjectPermissionsFilter
 from tests.models import BasicModel, BasicPermModel
+from tests.utils import basic_auth_header
 
 
 factory = APIRequestFactory()
@@ -17,12 +15,6 @@ class BasicSerializer(serializers.ModelSerializer):
     class Meta:
         model = BasicModel
         fields = '__all__'
-
-
-def basic_auth_header(username, password):
-    credentials = ('%s:%s' % (username, password))
-    credentials = credentials.encode(HTTP_HEADER_ENCODING)
-    return 'Basic %s' % base64.b64encode(credentials).decode(HTTP_HEADER_ENCODING)
 
 
 class BasicPermSerializer(serializers.ModelSerializer):
