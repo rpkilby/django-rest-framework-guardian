@@ -88,10 +88,6 @@ class EventViewSet(viewsets.ModelViewSet):
 ```
 
 
-
-
-
-
 ## DjangoGuardianObjectPermissionsAssigner
 
 A serializer mixin that allows permissions to be easily assigned to users and/or groups.
