@@ -95,7 +95,7 @@ class EventViewSet(viewsets.ModelViewSet):
 ## DjangoGuardianObjectPermissionsAssigner
 
 A serializer mixin that allows permissions to be easily assigned to users and/or groups.
-So each time an object is created or updated, the `permissions_map` returned by `Serializer.get_permissions_map` will be used to assign permission to that project.
+So each time an object is created or updated, the `permissions_map` returned by `Serializer.get_permissions_map` will be used to assign permission(s) to that object.
 
 Please note that the existing permissions will remain intact.
 
