@@ -103,9 +103,9 @@ from rest_framework_guardian.serializers import ObjectPermissionsAssignmentMixin
 from blog.models import Post
 
 
-class BasicSerializer(ObjectPermissionsAssignmentMixin, serializers.ModelSerializer):
+class PostSerializer(ObjectPermissionsAssignmentMixin, serializers.ModelSerializer):
     class Meta:
-        model = Note
+        model = Post
         fields = '__all__'
 
     def get_permissions_map(self, created):
