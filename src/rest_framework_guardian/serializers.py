@@ -32,9 +32,8 @@ class ObjectPermissionsAssignmentMixin(Serializer):
         return result
 
     def _handle_permissions(self, created):
-        permissions_map = self.get_permissions_map(
-            False,
-        )
+        permissions_map = self.get_permissions_map(created)
+
         assert isinstance(permissions_map, Mapping), (
             '%s.get_permissions_map is expected '
             'to return an Mapping (e.g. dict), got %r instead' % (
