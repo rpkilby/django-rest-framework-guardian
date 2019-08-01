@@ -49,6 +49,7 @@ class ObjectPermissionsAssignmentMixin(Serializer):
             )
 
     def _assign_permissions(self, permissions_map):
+        # Import at runtime (see: DjangoObjectPermissionsFilter.filter_queryset)
         from guardian.shortcuts import assign_perm
 
         for permission, users_or_groups in permissions_map.items():
