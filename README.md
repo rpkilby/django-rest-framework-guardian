@@ -88,7 +88,7 @@ class EventViewSet(viewsets.ModelViewSet):
 ```
 
 
-## DjangoGuardianObjectPermissionsAssigner
+## ObjectPermissionsAssignmentMixin
 
 A serializer mixin that allows permissions to be easily assigned to users and/or groups.
 So each time an object is created or updated, the `permissions_map` returned by `Serializer.get_permissions_map` will be used to assign permission(s) to that object.
@@ -98,12 +98,12 @@ Please note that the existing permissions will remain intact.
 A usage example might look like the following:
 
 ```python
-from rest_framework_guardian.serializers import DjangoGuardianObjectPermissionsAssigner
+from rest_framework_guardian.serializers import ObjectPermissionsAssignmentMixin
 
 from blog.models import Post
 
 
-class BasicSerializer(DjangoGuardianObjectPermissionsAssigner serializers.ModelSerializer):
+class BasicSerializer(ObjectPermissionsAssignmentMixin, serializers.ModelSerializer):
     class Meta:
         model = Note
         fields = '__all__'

@@ -9,7 +9,7 @@ from rest_framework.serializers import Serializer
 User = get_user_model()
 
 
-class DjangoGuardianObjectPermissionsAssigner(Serializer):
+class ObjectPermissionsAssignmentMixin(Serializer):
     """
     A serializer mixin that provides an easy way to assign permissions
     to given users and/or group when an object is created or updated.

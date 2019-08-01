@@ -5,7 +5,7 @@ from rest_framework import authentication, serializers, status, viewsets
 from rest_framework.test import APIRequestFactory
 
 from rest_framework_guardian.filters import DjangoObjectPermissionsFilter
-from rest_framework_guardian.serializers import DjangoGuardianObjectPermissionsAssigner
+from rest_framework_guardian.serializers import ObjectPermissionsAssignmentMixin
 from tests.models import BasicModel
 from tests.permissions import ViewObjectPermissions
 from tests.utils import basic_auth_header
@@ -14,9 +14,7 @@ from tests.utils import basic_auth_header
 factory = APIRequestFactory()
 
 
-class BasicSerializer(
-        DjangoGuardianObjectPermissionsAssigner,
-        serializers.ModelSerializer):
+class BasicSerializer(ObjectPermissionsAssignmentMixin, serializers.ModelSerializer):
     class Meta:
         model = BasicModel
         fields = '__all__'
