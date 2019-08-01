@@ -1,4 +1,4 @@
-from collections import Mapping
+from collections.abc import Mapping
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
