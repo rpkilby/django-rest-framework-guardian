@@ -35,11 +35,8 @@ class ObjectPermissionsAssignmentMixin(Serializer):
         permissions_map = self.get_permissions_map(created)
 
         assert isinstance(permissions_map, Mapping), (
-            '%s.get_permissions_map is expected '
-            'to return an Mapping (e.g. dict), got %r instead' % (
-                self.__class__.__name__,
-                type(permissions_map).__name__,
-            )
+            'Expected %s.get_permissions_map to return a dict, got %s instead.'
+            % (self.__class__.__name__, type(permissions_map).__name__)
         )
 
         with transaction.atomic():
