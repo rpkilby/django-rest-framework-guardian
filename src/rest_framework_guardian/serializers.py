@@ -27,12 +27,17 @@ class ObjectPermissionsAssignmentMixin(Serializer):
 
         result = super().save(**kwargs)
 
-        self._handle_permissions(created)
+        permissions_map = self.get_permissions_map(created)
+        self.assign_permissions(permissions_map)
 
         return result
 
-    def _handle_permissions(self, created):
-        permissions_map = self.get_permissions_map(created)
+    def assign_permissions(self, permissions_map):
+        """
+        Assign the permissions to their associated users/groups.
+        """
+        # Import at runtime (see: DjangoObjectPermissionsFilter.filter_queryset)
+        from guardian.shortcuts import assign_perm
 
         assert isinstance(permissions_map, Mapping), (
             'Expected %s.get_permissions_map to return a dict, got %s instead.'
@@ -40,24 +45,16 @@ class ObjectPermissionsAssignmentMixin(Serializer):
         )
 
         with transaction.atomic():
-            self._assign_permissions(
-                permissions_map,
-            )
+            for permission, assignees in permissions_map.items():
+                users = [u for u in assignees if isinstance(u, User)]
+                groups = [g for g in assignees if isinstance(g, Group)]
 
-    def _assign_permissions(self, permissions_map):
-        # Import at runtime (see: DjangoObjectPermissionsFilter.filter_queryset)
-        from guardian.shortcuts import assign_perm
-
-        for permission, assignees in permissions_map.items():
-            users = [u for u in assignees if isinstance(u, User)]
-            groups = [g for g in assignees if isinstance(g, Group)]
-
-            # TODO: support Django Guardian bulk permission assigning
-            # Currently, trying to assign a permission to multiple
-            # users or groups can result uniqueness constraint error
-            # in database level due to `assign_perm` not checking
-            # the existance of a permission before inserting
-            for user in users:
-                assign_perm(permission, user, self.instance)
-            for group in groups:
-                assign_perm(permission, group, self.instance)
+                # TODO: support Django Guardian bulk permission assigning
+                # Currently, trying to assign a permission to multiple
+                # users or groups can result uniqueness constraint error
+                # in database level due to `assign_perm` not checking
+                # the existance of a permission before inserting
+                for user in users:
+                    assign_perm(permission, user, self.instance)
+                for group in groups:
+                    assign_perm(permission, group, self.instance)
