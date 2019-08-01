@@ -48,17 +48,9 @@ class ObjectPermissionsAssignmentMixin(Serializer):
         # Import at runtime (see: DjangoObjectPermissionsFilter.filter_queryset)
         from guardian.shortcuts import assign_perm
 
-        for permission, users_or_groups in permissions_map.items():
-            users = [
-                user_or_group
-                for user_or_group in users_or_groups
-                if isinstance(user_or_group, User)
-            ]
-            groups = [
-                user_or_group
-                for user_or_group in users_or_groups
-                if isinstance(user_or_group, Group)
-            ]
+        for permission, assignees in permissions_map.items():
+            users = [u for u in assignees if isinstance(u, User)]
+            groups = [g for g in assignees if isinstance(g, Group)]
 
             # TODO: support Django Guardian bulk permission assigning
             # Currently, trying to assign a permission to multiple
