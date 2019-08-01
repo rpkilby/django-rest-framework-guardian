@@ -1,7 +1,8 @@
 Unreleased
 ==========
 
-- Add a Django REST Framework serializer mixin that facilitates the assigment of object permissions.
+- Add `ObjectPermissionsAssignmentMixin` serializer mixin, which facilitates the
+  assigment of object permissions.
 
 0.2.0 (2019-07-19)
 ==================
