@@ -15,13 +15,6 @@ class ObjectPermissionsAssignmentMixin(Serializer):
     to given users and/or group when an object is created or updated.
     """
 
-    def get_permissions_map(self, created):
-        """
-        Return a map where keys are permissions
-        and values are list of users and/or groups
-        """
-        raise NotImplementedError
-
     def save(self, **kwargs):
         created = self.instance is not None
 
@@ -31,6 +24,13 @@ class ObjectPermissionsAssignmentMixin(Serializer):
         self.assign_permissions(permissions_map)
 
         return result
+
+    def get_permissions_map(self, created):
+        """
+        Return a map where keys are permissions
+        and values are list of users and/or groups
+        """
+        raise NotImplementedError
 
     def assign_permissions(self, permissions_map):
         """
