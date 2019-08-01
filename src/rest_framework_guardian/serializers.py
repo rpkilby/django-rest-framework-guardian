@@ -25,11 +25,11 @@ class DjangoGuardianObjectPermissionsAssigner(Serializer):
     def save(self, **kwargs):
         created = self.instance is not None
 
-        super().save(**kwargs)
+        result = super().save(**kwargs)
 
         self._handle_permissions(created)
 
-        return self.instance
+        return result
 
     def _handle_permissions(self, created):
         permissions_map = self.get_permissions_map(
