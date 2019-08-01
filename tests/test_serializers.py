@@ -1,6 +1,6 @@
 from collections import OrderedDict
 
-from django.contrib.auth.models import AnonymousUser, Group, User
+from django.contrib.auth.models import Group, User
 from django.test import TestCase
 from rest_framework import serializers
 from rest_framework.test import APIRequestFactory
@@ -123,54 +123,29 @@ class ObjectPermissionsAssignmentIntegrationTests(TestCase):
 
 
 class ObjectPermissionsAssignmentImplementationTests(TestCase):
-    def setUp(self):
-        request = factory.post('/')
-        request.user = AnonymousUser()
 
-        self.serializer = BasicSerializer(
-            data={
-                'text': 'test',
-            },
-            context={
-                'request': request,
-            },
-        )
-        self.serializer.is_valid(raise_exception=True)
+    def test_get_permissions_map_should_return_a_mapping(self):
+        for return_value in [dict(), OrderedDict()]:
+            class TestSerializer(BasicSerializer):
+                def get_permissions_map(self, created):
+                    return return_value
 
-    def override_serializer_get_permissions_map(self, func):
-        self.serializer.get_permissions_map = (
-            func.__get__(
-                self.serializer,
-                self.serializer.__class__,
-            )
+            serializer = TestSerializer(data={'text': 'test'})
+            serializer.is_valid(raise_exception=True)
+            self.assertIsInstance(serializer.save(), BasicModel)
+
+    def test_get_permissions_map_error_message(self):
+        error_message = (
+            'Expected InvalidSerializer.get_permissions_map '
+            'to return a dict, got list instead.'
         )
 
-    def test_serializer_get_permission_map_should_return_a_mapping(self):
-        return_values = (
-            dict(), OrderedDict(),
-        )
-        for return_value in return_values:
-            self.override_serializer_get_permissions_map(
-                lambda self, created: return_value,
-            )
-            assert self.serializer.save()
+        class InvalidSerializer(BasicSerializer):
+            def get_permissions_map(self, created):
+                return []
 
-    def test_serializer_get_permission_map_should_not_return_none_mapping(self):
-        assertion_error_message = (
-            'Expected BasicSerializer.get_permissions_map '
-            'to return a dict, got %s instead.'
-        )
+        serializer = InvalidSerializer(data={'text': 'test'})
+        serializer.is_valid(raise_exception=True)
 
-        return_values = (
-            int(), float(), list(),
-            tuple(), set(), str(),
-            bool(True), object(), iter([]),
-        )
-        for return_value in return_values:
-            self.override_serializer_get_permissions_map(
-                lambda self, created: return_value,
-            )
-            with self.assertRaisesMessage(
-                    AssertionError,
-                    assertion_error_message % type(return_value).__name__):
-                self.serializer.save()
+        with self.assertRaisesMessage(AssertionError, error_message):
+            serializer.save()
