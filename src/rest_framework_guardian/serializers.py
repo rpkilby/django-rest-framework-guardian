@@ -20,7 +20,7 @@ class ObjectPermissionsAssignmentMixin(Serializer):
         Return a map where keys are permissions
         and values are list of users and/or groups
         """
-        return {}
+        raise NotImplementedError
 
     def save(self, **kwargs):
         created = self.instance is not None
