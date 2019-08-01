@@ -1,5 +1,6 @@
+from collections import OrderedDict
 
-from django.contrib.auth.models import Group, User
+from django.contrib.auth.models import AnonymousUser, Group, User
 from django.test import TestCase
 from rest_framework import serializers
 from rest_framework.test import APIRequestFactory
@@ -119,3 +120,57 @@ class ObjectPermissionsAssignmentIntegrationTests(TestCase):
             self.perms['delete'],
             instance,
         )
+
+
+class ObjectPermissionsAssignmentImplementationTests(TestCase):
+    def setUp(self):
+        request = factory.post('/')
+        request.user = AnonymousUser()
+
+        self.serializer = BasicSerializer(
+            data={
+                'text': 'test',
+            },
+            context={
+                'request': request,
+            },
+        )
+        self.serializer.is_valid(raise_exception=True)
+
+    def override_serializer_get_permissions_map(self, func):
+        self.serializer.get_permissions_map = (
+            func.__get__(
+                self.serializer,
+                self.serializer.__class__,
+            )
+        )
+
+    def test_serializer_get_permission_map_should_return_a_mapping(self):
+        return_values = (
+            dict(), OrderedDict(),
+        )
+        for return_value in return_values:
+            self.override_serializer_get_permissions_map(
+                lambda self, created: return_value,
+            )
+            assert self.serializer.save()
+
+    def test_serializer_get_permission_map_should_not_return_none_mapping(self):
+        assertion_error_message = (
+            'Expected BasicSerializer.get_permissions_map '
+            'to return a dict, got %s instead.'
+        )
+
+        return_values = (
+            int(), float(), list(),
+            tuple(), set(), str(),
+            bool(True), object(), iter([]),
+        )
+        for return_value in return_values:
+            self.override_serializer_get_permissions_map(
+                lambda self, created: return_value,
+            )
+            with self.assertRaisesMessage(
+                    AssertionError,
+                    assertion_error_message % type(return_value).__name__):
+                self.serializer.save()
