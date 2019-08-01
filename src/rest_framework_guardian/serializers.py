@@ -1,6 +1,5 @@
 from collections import Mapping
 
-from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.db import transaction
@@ -15,17 +14,6 @@ class DjangoGuardianObjectPermissionsAssigner(Serializer):
     A serializer mixin that provides an easy way to assign permissions
     to given users and/or group when an object is created or updated.
     """
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(
-            *args,
-            **kwargs,
-        )
-
-        assert 'guardian' in settings.INSTALLED_APPS, (
-            'Using DjangoGuardianObjectPermAssigner, '
-            'but django-guardian is not installed.'
-        )
 
     def get_permissions_map(self, created):
         """

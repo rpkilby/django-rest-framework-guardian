@@ -1,4 +1,3 @@
-from django.conf import settings
 from rest_framework.filters import BaseFilterBackend
 
 
@@ -11,11 +10,6 @@ class DjangoObjectPermissionsFilter(BaseFilterBackend):
     shortcut_kwargs = {
         'accept_global_perms': False,
     }
-
-    def __init__(self):
-        assert 'guardian' in settings.INSTALLED_APPS, (
-            'Using DjangoObjectPermissionsFilter, '
-            'but django-guardian is not installed.')
 
     def filter_queryset(self, request, queryset, view):
         # We want to defer this import until runtime, rather than import-time.
