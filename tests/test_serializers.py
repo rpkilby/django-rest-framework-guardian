@@ -59,33 +59,25 @@ class ObjectPermissionsAssignmentIntegrationTests(TestCase):
 
         return instance
 
-    def test_can_read_assigned_objects(self):
+    def test_read_permissions(self):
         instance = self.create_object()
 
+        # Reader is indirectly assigned via its group permissions
         self.assertTrue(self.writer.has_perm('view_basicmodel', instance))
-        # check if readers group members have view perm
         self.assertTrue(self.reader.has_perm('view_basicmodel', instance))
+        self.assertFalse(self.no_perms.has_perm('view_basicmodel', instance))
 
-    def test_can_change_assigned_objects(self):
+    def test_change_permissions(self):
         instance = self.create_object()
 
         self.assertTrue(self.writer.has_perm('change_basicmodel', instance))
-
-    def test_cannot_read_unassigned_objects(self):
-        instance = self.create_object()
-
-        self.assertFalse(self.no_perms.has_perm('view_basicmodel', instance))
-
-    def test_cannot_change_unassigned_objects(self):
-        instance = self.create_object()
-
-        self.assertFalse(self.no_perms.has_perm('change_basicmodel', instance))
-        # check if readers group members don't have change perm
         self.assertFalse(self.reader.has_perm('change_basicmodel', instance))
+        self.assertFalse(self.no_perms.has_perm('change_basicmodel', instance))
 
-    def test_cannot_delete_unassigned_objects(self):
+    def test_delete_permissions(self):
         instance = self.create_object()
 
+        # No user should be assigned delete permissions
         self.assertFalse(self.writer.has_perm('delete_basicmodel', instance))
         self.assertFalse(self.reader.has_perm('delete_basicmodel', instance))
         self.assertFalse(self.no_perms.has_perm('delete_basicmodel', instance))
