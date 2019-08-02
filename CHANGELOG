@@ -3,6 +3,7 @@ Unreleased
 
 - Add `ObjectPermissionsAssignmentMixin` serializer mixin, which facilitates the
   assigment of object permissions.
+- Rename `DjangoObjectPermissionsFilter` to `ObjectPermissionsFilter`.
 
 0.2.0 (2019-07-19)
 ==================

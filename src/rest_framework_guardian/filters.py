@@ -1,7 +1,9 @@
+import warnings
+
 from rest_framework.filters import BaseFilterBackend
 
 
-class DjangoObjectPermissionsFilter(BaseFilterBackend):
+class ObjectPermissionsFilter(BaseFilterBackend):
     """
     A filter backend that limits results to those where the requesting user
     has read object level permissions.
@@ -26,3 +28,13 @@ class DjangoObjectPermissionsFilter(BaseFilterBackend):
         return get_objects_for_user(
             user, permission, queryset,
             **self.shortcut_kwargs)
+
+
+class DjangoObjectPermissionsFilter(ObjectPermissionsFilter):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        warnings.warn(
+            '`DjangoObjectPermissionsFilter` has been renamed to '
+            '`ObjectPermissionsFilter` and will be removed in the future.',
+            DeprecationWarning, stacklevel=2,
+        )

@@ -7,7 +7,7 @@
 [![Python](https://img.shields.io/pypi/pyversions/djangorestframework-guardian.svg)](https://pypi.org/project/djangorestframework-guardian/)
 
 django-rest-framework-guardian provides django-guardian integrations for Django REST Framework.
-Currently, this only includes the `DjangoObjectPermissionsFilter`.
+Currently, this only includes the `ObjectPermissionsFilter`.
 
 
 ## Installation & Setup
@@ -33,15 +33,15 @@ AUTHENTICATION_BACKENDS = [
 ```
 
 
-## DjangoObjectPermissionsFilter
+## ObjectPermissionsFilter
 
 The filter will ensure that querysets only returns objects for which the user has the appropriate view permission.
 
-If you're using `DjangoObjectPermissionsFilter`, you'll probably also want to add an appropriate object permissions
+If you're using `ObjectPermissionsFilter`, you'll probably also want to add an appropriate object permissions
 class, to ensure that users can only operate on instances if they have the appropriate object permissions.  The easiest
 way to do this is to subclass `DjangoObjectPermissions` and add `'view'` permissions to the `perms_map` attribute.
 
-An example using both `DjangoObjectPermissionsFilter` and `DjangoObjectPermissions` might look like the following:
+An example using both `ObjectPermissionsFilter` and `DjangoObjectPermissions` might look like the following:
 
 **permissions.py**:
 
@@ -84,7 +84,7 @@ class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = [CustomObjectPermissions]
-    filter_backends = [filters.DjangoObjectPermissionsFilter]
+    filter_backends = [filters.ObjectPermissionsFilter]
 ```
 
 
