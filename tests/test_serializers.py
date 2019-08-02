@@ -42,13 +42,6 @@ class ObjectPermissionsAssignmentIntegrationTests(TestCase):
         reader_group = Group.objects.create(name='readers')
         reader_group.user_set.add(self.reader)
 
-        model_name = BasicModel._meta.model_name
-        self.perms = {
-            'view': '{0}_{1}'.format('view', model_name),
-            'change': '{0}_{1}'.format('change', model_name),
-            'delete': '{0}_{1}'.format('delete', model_name),
-        }
-
     def create_object(self):
         request = factory.post('/')
         request.user = self.writer
@@ -69,33 +62,33 @@ class ObjectPermissionsAssignmentIntegrationTests(TestCase):
     def test_can_read_assigned_objects(self):
         instance = self.create_object()
 
-        assert self.writer.has_perm(self.perms['view'], instance)
+        assert self.writer.has_perm('view_basicmodel', instance)
         # check if readers group members have view perm
-        assert self.reader.has_perm(self.perms['view'], instance)
+        assert self.reader.has_perm('view_basicmodel', instance)
 
     def test_can_change_assigned_objects(self):
         instance = self.create_object()
 
-        assert self.writer.has_perm(self.perms['change'], instance)
+        assert self.writer.has_perm('change_basicmodel', instance)
 
     def test_cannot_read_unassigned_objects(self):
         instance = self.create_object()
 
-        assert not self.no_perms.has_perm(self.perms['view'], instance)
+        assert not self.no_perms.has_perm('view_basicmodel', instance)
 
     def test_cannot_change_unassigned_objects(self):
         instance = self.create_object()
 
-        assert not self.no_perms.has_perm(self.perms['change'], instance)
+        assert not self.no_perms.has_perm('change_basicmodel', instance)
         # check if readers group members don't have change perm
-        assert not self.reader.has_perm(self.perms['change'], instance)
+        assert not self.reader.has_perm('change_basicmodel', instance)
 
     def test_cannot_delete_unassigned_objects(self):
         instance = self.create_object()
 
-        assert not self.writer.has_perm(self.perms['delete'], instance)
-        assert not self.reader.has_perm(self.perms['delete'], instance)
-        assert not self.no_perms.has_perm(self.perms['delete'], instance)
+        assert not self.writer.has_perm('delete_basicmodel', instance)
+        assert not self.reader.has_perm('delete_basicmodel', instance)
+        assert not self.no_perms.has_perm('delete_basicmodel', instance)
 
 
 class ObjectPermissionsAssignmentImplementationTests(TestCase):
