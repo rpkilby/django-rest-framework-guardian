@@ -1,9 +1,12 @@
+import warnings
+
 from django.contrib.auth.models import Group, User
 from django.test import TestCase
 from rest_framework import authentication, generics, permissions, serializers, status
 from rest_framework.test import APIRequestFactory
 
-from rest_framework_guardian.filters import DjangoObjectPermissionsFilter
+from rest_framework_guardian.filters import (
+    DjangoObjectPermissionsFilter, ObjectPermissionsFilter)
 from tests.models import BasicModel, BasicPermModel
 from tests.utils import basic_auth_header
 
@@ -51,7 +54,7 @@ class ObjectPermissionListView(generics.ListAPIView):
     serializer_class = BasicPermSerializer
     authentication_classes = [authentication.BasicAuthentication]
     permission_classes = [ViewObjectPermissions]
-    filter_backends = [DjangoObjectPermissionsFilter]
+    filter_backends = [ObjectPermissionsFilter]
 
 
 object_permissions_list_view = ObjectPermissionListView.as_view()
@@ -130,3 +133,16 @@ class ObjectPermissionsIntegrationTests(TestCase):
         response = object_permissions_list_view(request)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertListEqual(response.data, [])
+
+    def test_deprecation_warning(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter('always')
+
+            DjangoObjectPermissionsFilter()
+
+            self.assertEqual(len(w), 1)
+            self.assertIs(w[0].category, DeprecationWarning)
+            self.assertEqual(str(w[0].message),
+                             '`DjangoObjectPermissionsFilter` has been renamed '
+                             'to `ObjectPermissionsFilter` and will be removed '
+                             'in the future.')
