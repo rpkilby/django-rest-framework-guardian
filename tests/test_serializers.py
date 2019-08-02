@@ -47,12 +47,8 @@ class ObjectPermissionsAssignmentIntegrationTests(TestCase):
         request.user = self.writer
 
         serializer = BasicSerializer(
-            data={
-                'text': 'test',
-            },
-            context={
-                'request': request,
-            },
+            data={'text': 'test'},
+            context={'request': request},
         )
         serializer.is_valid(raise_exception=True)
         instance = serializer.save()
