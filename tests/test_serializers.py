@@ -62,33 +62,33 @@ class ObjectPermissionsAssignmentIntegrationTests(TestCase):
     def test_can_read_assigned_objects(self):
         instance = self.create_object()
 
-        assert self.writer.has_perm('view_basicmodel', instance)
+        self.assertTrue(self.writer.has_perm('view_basicmodel', instance))
         # check if readers group members have view perm
-        assert self.reader.has_perm('view_basicmodel', instance)
+        self.assertTrue(self.reader.has_perm('view_basicmodel', instance))
 
     def test_can_change_assigned_objects(self):
         instance = self.create_object()
 
-        assert self.writer.has_perm('change_basicmodel', instance)
+        self.assertTrue(self.writer.has_perm('change_basicmodel', instance))
 
     def test_cannot_read_unassigned_objects(self):
         instance = self.create_object()
 
-        assert not self.no_perms.has_perm('view_basicmodel', instance)
+        self.assertFalse(self.no_perms.has_perm('view_basicmodel', instance))
 
     def test_cannot_change_unassigned_objects(self):
         instance = self.create_object()
 
-        assert not self.no_perms.has_perm('change_basicmodel', instance)
+        self.assertFalse(self.no_perms.has_perm('change_basicmodel', instance))
         # check if readers group members don't have change perm
-        assert not self.reader.has_perm('change_basicmodel', instance)
+        self.assertFalse(self.reader.has_perm('change_basicmodel', instance))
 
     def test_cannot_delete_unassigned_objects(self):
         instance = self.create_object()
 
-        assert not self.writer.has_perm('delete_basicmodel', instance)
-        assert not self.reader.has_perm('delete_basicmodel', instance)
-        assert not self.no_perms.has_perm('delete_basicmodel', instance)
+        self.assertFalse(self.writer.has_perm('delete_basicmodel', instance))
+        self.assertFalse(self.reader.has_perm('delete_basicmodel', instance))
+        self.assertFalse(self.no_perms.has_perm('delete_basicmodel', instance))
 
 
 class ObjectPermissionsAssignmentImplementationTests(TestCase):
