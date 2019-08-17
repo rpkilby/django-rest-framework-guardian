@@ -7,7 +7,6 @@
 [![Python](https://img.shields.io/pypi/pyversions/djangorestframework-guardian.svg)](https://pypi.org/project/djangorestframework-guardian/)
 
 django-rest-framework-guardian provides django-guardian integrations for Django REST Framework.
-Currently, this only includes the `ObjectPermissionsFilter`.
 
 
 ## Installation & Setup
