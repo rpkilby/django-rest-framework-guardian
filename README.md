@@ -130,7 +130,8 @@ class PostSerializer(ObjectPermissionsAssignmentMixin, serializers.ModelSerializ
   ```bash
   $ pip install -U pip setuptools wheel twine
   $ rm -rf dist/ build/
-  $ python setup.py bdist_wheel
+  $ python setup.py sdist bdist_wheel
+  $ twine upload -r test dist/*
   $ twine upload dist/*
   ```
 
