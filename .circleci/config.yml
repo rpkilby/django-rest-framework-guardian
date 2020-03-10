@@ -46,6 +46,13 @@ jobs:
     docker:
       - image: circleci/python:3.7
 
+  test-py38:
+    <<: *test-steps
+    docker:
+      - image: circleci/python:3.8
+    environment:
+      TOXENV: py38
+
   test-py37:
     <<: *test-steps
     docker:
