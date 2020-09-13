@@ -84,6 +84,10 @@ workflows:
           requires:
             - lint
 
+      - test-py38:
+          requires:
+            - lint
+
       - test-py37:
           requires:
             - lint
