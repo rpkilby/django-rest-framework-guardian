@@ -46,6 +46,20 @@ jobs:
     docker:
       - image: circleci/python:3.7
 
+  test-py310:
+    <<: *test-steps
+    docker:
+      - image: circleci/python:3.10
+    environment:
+      TOXENV: py310
+
+  test-py39:
+    <<: *test-steps
+    docker:
+      - image: circleci/python:3.9
+    environment:
+      TOXENV: py39
+
   test-py38:
     <<: *test-steps
     docker:
@@ -81,6 +95,14 @@ workflows:
     jobs:
       - lint
       - dist:
+          requires:
+            - lint
+
+      - test-py310:
+          requires:
+            - lint
+
+      - test-py39:
           requires:
             - lint
 
