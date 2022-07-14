@@ -32,7 +32,7 @@ jobs:
       - *install
       - run: tox -e isort,lint,readme
     docker:
-      - image: circleci/python:3.7
+      - image: circleci/python:3.8
 
   dist:
     steps:
@@ -44,7 +44,7 @@ jobs:
           tox -e dist --installpkg ./dist/djangorestframework_guardian-*.whl
           tox -e dist
     docker:
-      - image: circleci/python:3.7
+      - image: circleci/python:3.8
 
   test-py310:
     <<: *test-steps
