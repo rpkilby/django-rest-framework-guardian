@@ -81,13 +81,6 @@ jobs:
     environment:
       TOXENV: py36
 
-  test-py35:
-    <<: *test-steps
-    docker:
-      - image: circleci/python:3.5
-    environment:
-      TOXENV: py35
-
 
 workflows:
   version: 2
@@ -115,10 +108,6 @@ workflows:
             - lint
 
       - test-py36:
-          requires:
-            - lint
-
-      - test-py35:
           requires:
             - lint
 
