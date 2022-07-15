@@ -32,7 +32,7 @@ jobs:
       - *install
       - run: tox -e isort,lint,readme
     docker:
-      - image: circleci/python:3.7
+      - image: circleci/python:3.8
 
   dist:
     steps:
@@ -44,7 +44,21 @@ jobs:
           tox -e dist --installpkg ./dist/djangorestframework_guardian-*.whl
           tox -e dist
     docker:
-      - image: circleci/python:3.7
+      - image: circleci/python:3.8
+
+  test-py310:
+    <<: *test-steps
+    docker:
+      - image: circleci/python:3.10
+    environment:
+      TOXENV: py310
+
+  test-py39:
+    <<: *test-steps
+    docker:
+      - image: circleci/python:3.9
+    environment:
+      TOXENV: py39
 
   test-py38:
     <<: *test-steps
@@ -67,13 +81,6 @@ jobs:
     environment:
       TOXENV: py36
 
-  test-py35:
-    <<: *test-steps
-    docker:
-      - image: circleci/python:3.5
-    environment:
-      TOXENV: py35
-
 
 workflows:
   version: 2
@@ -84,15 +91,23 @@ workflows:
           requires:
             - lint
 
+      - test-py310:
+          requires:
+            - lint
+
+      - test-py39:
+          requires:
+            - lint
+
+      - test-py38:
+          requires:
+            - lint
+
       - test-py37:
           requires:
             - lint
 
       - test-py36:
-          requires:
-            - lint
-
-      - test-py35:
           requires:
             - lint
 
