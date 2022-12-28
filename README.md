@@ -1,20 +1,21 @@
-# django-rest-framework-guardian
+# django-rest-framework-guardian2
 
-[![CircleCI](https://circleci.com/gh/rpkilby/django-rest-framework-guardian.svg?style=shield)](https://circleci.com/gh/rpkilby/django-rest-framework-guardian)
-[![Codecov](https://codecov.io/gh/rpkilby/django-rest-framework-guardian/branch/master/graph/badge.svg)](https://codecov.io/gh/rpkilby/django-rest-framework-guardian)
-[![License](https://img.shields.io/pypi/l/djangorestframework-guardian.svg)](https://pypi.org/project/djangorestframework-guardian)
-[![Version](https://img.shields.io/pypi/v/djangorestframework-guardian.svg)](https://pypi.org/project/djangorestframework-guardian)
-[![Python](https://img.shields.io/pypi/pyversions/djangorestframework-guardian.svg)](https://pypi.org/project/djangorestframework-guardian/)
+[![GitHub Actions][github-actions-badge]](https://github.com/johnthagen/python-blueprint/actions)
+[![License](https://img.shields.io/pypi/l/djangorestframework-guardian2.svg)](https://pypi.org/project/djangorestframework-guardian2)
+[![Version](https://img.shields.io/pypi/v/djangorestframework-guardian2.svg)](https://pypi.org/project/djangorestframework-guardian2)
+[![Python](https://img.shields.io/pypi/pyversions/djangorestframework-guardian2.svg)](https://pypi.org/project/djangorestframework-guardian2/)
 
-django-rest-framework-guardian provides django-guardian integrations for Django REST Framework.
+[github-actions-badge]: https://github.com/johnthagen/django-rest-framework-guardian/workflows/python/badge.svg
+
+django-rest-framework-guardian2 provides django-guardian integrations for Django REST Framework.
 
 
 ## Installation & Setup
 
-To use django-rest-framework-guardian, install it into your environment.
+To use django-rest-framework-guardian2, install it into your environment.
 
 ```sh
-$ pip install djangorestframework-guardian
+$ pip install djangorestframework-guardian2
 ```
 
 Ensure both Django REST Framework and django-guardian are configured and added to your `INSTALLED_APPS` setting.
@@ -137,4 +138,4 @@ class PostSerializer(ObjectPermissionsAssignmentMixin, serializers.ModelSerializ
 
 ## License
 
-See: [LICENSE](https://github.com/rpkilby/django-rest-framework-guardian/blob/master/LICENSE)
+See: [LICENSE](https://github.com/johnthagen/django-rest-framework-guardian/blob/master/LICENSE)

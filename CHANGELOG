@@ -1,6 +1,9 @@
 Unreleased
 ==========
 
+0.4.0 (2022-12-28)
+==================
+
 - Drop support for Python 3.5 and 3.6.
 - Add support for Python 3.9, 3.10, and 3.11.
 - Drop support for Django 2.1, 2.2, and 3.0.
