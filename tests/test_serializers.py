@@ -85,7 +85,7 @@ class ObjectPermissionsAssignmentImplementationTests(TestCase):
         for return_value in [dict(), OrderedDict()]:
             class TestSerializer(BasicSerializer):
                 def get_permissions_map(self, created):
-                    return return_value
+                    return return_value  # noqa: B023
 
             serializer = TestSerializer(data={'text': 'test'})
             serializer.is_valid(raise_exception=True)
