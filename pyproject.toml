@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "djangorestframework-guardian"
+version = "0.3.0"
+
+dependencies = [
+    "django",
+    "djangorestframework",
+    "django-guardian",
+]
+requires-python = ">=3.10"
+
+authors = [{name = "Ryan P Kilby", email = "kilbyr@gmail.com"}]
+description = "django-guardian support for Django REST Framework"
+readme = "README.md"
+license = "BSD-3-Clause"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.0",
+    "Framework :: Django :: 5.1",
+    "Framework :: Django :: 5.2",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+[project.urls]
+Repository = "https://github.com/rpkilby/django-rest-framework-guardian"
+Issues = "https://github.com/rpkilby/django-rest-framework-guardian/issues"
+Changelog = "https://github.com/rpkilby/django-rest-framework-guardian/CHANGELOG"
+
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.coverage.paths]
+source = ["src/"]
+
+[tool.coverage.run]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+
+[tool.flake8]
+max-line-length = 88
+max-complexity = 10
+
+[tool.isort]
+profile = "black"
+atomic = true
+combine_as_imports = true
+lines_after_imports = 2
+known_first_party = ["rest_framework_guardian", "tests"]
+known_third_party = ["django", "rest_framework"]
+src_paths = ["src", "tests"]
