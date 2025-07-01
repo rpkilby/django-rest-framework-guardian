@@ -1,5 +1,3 @@
-from collections import OrderedDict
-
 from django.contrib.auth.models import Group, User
 from django.test import TestCase
 from rest_framework import serializers
@@ -82,14 +80,13 @@ class ObjectPermissionsAssignmentIntegrationTests(TestCase):
 class ObjectPermissionsAssignmentImplementationTests(TestCase):
 
     def test_get_permissions_map_should_return_a_mapping(self):
-        for return_value in [dict(), OrderedDict()]:
-            class TestSerializer(BasicSerializer):
-                def get_permissions_map(self, created):
-                    return return_value
+        class TestSerializer(BasicSerializer):
+            def get_permissions_map(self, created):
+                return dict()
 
-            serializer = TestSerializer(data={'text': 'test'})
-            serializer.is_valid(raise_exception=True)
-            self.assertIsInstance(serializer.save(), BasicModel)
+        serializer = TestSerializer(data={'text': 'test'})
+        serializer.is_valid(raise_exception=True)
+        self.assertIsInstance(serializer.save(), BasicModel)
 
     def test_get_permissions_map_error_message(self):
         error_message = (

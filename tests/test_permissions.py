@@ -6,7 +6,9 @@ from rest_framework import authentication, generics, permissions, serializers, s
 from rest_framework.test import APIRequestFactory
 
 from rest_framework_guardian.filters import (
-    DjangoObjectPermissionsFilter, ObjectPermissionsFilter)
+    DjangoObjectPermissionsFilter,
+    ObjectPermissionsFilter,
+)
 from tests.models import BasicModel, BasicPermModel
 from tests.utils import basic_auth_header
 
@@ -120,7 +122,8 @@ class ObjectPermissionsIntegrationTests(TestCase):
 
         self.credentials = {}
         for user in users.values():
-            self.credentials[user.username] = basic_auth_header(user.username, 'password')
+            auth = basic_auth_header(user.username, 'password')
+            self.credentials[user.username] = auth
 
     def test_can_read_list_permissions(self):
         request = factory.get('/', HTTP_AUTHORIZATION=self.credentials['readonly'])
