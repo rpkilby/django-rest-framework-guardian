@@ -5,6 +5,7 @@ Unreleased
 - Set Django version support to 4.2 through 5.2
 - Modernize packaging to use `pyproject.toml`
 - Remove deprecated `DjangoObjectPermissionsFilter`
+- Fix tox py310 build issue
 
 0.3.0 (2019-08-01)
 ==================
