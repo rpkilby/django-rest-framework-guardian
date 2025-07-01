@@ -1,7 +1,7 @@
 # django-rest-framework-guardian
 
-[![CircleCI](https://circleci.com/gh/rpkilby/django-rest-framework-guardian.svg?style=shield)](https://circleci.com/gh/rpkilby/django-rest-framework-guardian)
-[![Codecov](https://codecov.io/gh/rpkilby/django-rest-framework-guardian/branch/master/graph/badge.svg)](https://codecov.io/gh/rpkilby/django-rest-framework-guardian)
+[![build-status](https://github.com/rpkilby/django-rest-framework-guardian/actions/workflows/main.yml/badge.svg)](https://github.com/rpkilby/django-rest-framework-guardian/actions/workflows/main.yml)
+[![codecov](https://codecov.io/gh/rpkilby/django-rest-framework-guardian/graph/badge.svg)](https://codecov.io/gh/rpkilby/django-rest-framework-guardian)
 [![License](https://img.shields.io/pypi/l/djangorestframework-guardian.svg)](https://pypi.org/project/djangorestframework-guardian)
 [![Version](https://img.shields.io/pypi/v/djangorestframework-guardian.svg)](https://pypi.org/project/djangorestframework-guardian)
 [![Python](https://img.shields.io/pypi/pyversions/djangorestframework-guardian.svg)](https://pypi.org/project/djangorestframework-guardian/)

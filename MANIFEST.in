@@ -1,3 +1,0 @@
-include LICENSE
-include tox.ini
-recursive-include tests *.py
