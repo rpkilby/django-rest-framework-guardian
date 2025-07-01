@@ -38,7 +38,7 @@ classifiers = [
 [project.urls]
 Repository = "https://github.com/rpkilby/django-rest-framework-guardian"
 Issues = "https://github.com/rpkilby/django-rest-framework-guardian/issues"
-Changelog = "https://github.com/rpkilby/django-rest-framework-guardian/CHANGELOG"
+Changelog = "https://github.com/rpkilby/django-rest-framework-guardian/blob/master/CHANGELOG"
 
 
 [tool.setuptools.packages.find]
