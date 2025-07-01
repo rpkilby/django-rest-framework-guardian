@@ -20,7 +20,7 @@ aliases:
       - checkout
       - *environ
       - *install
-      - run: tox
+      - run: tox -f $TOXFACTOR
       - run: coverage report
       - run: codecov
 
@@ -30,9 +30,9 @@ jobs:
       - checkout
       - *environ
       - *install
-      - run: tox -e isort,lint,readme
+      - run: tox -e isort,lint
     docker:
-      - image: circleci/python:3.7
+      - image: circleci/python:3.13
 
   dist:
     steps:
@@ -44,35 +44,35 @@ jobs:
           tox -e dist --installpkg ./dist/djangorestframework_guardian-*.whl
           tox -e dist
     docker:
-      - image: circleci/python:3.7
+      - image: circleci/python:3.13
 
-  test-py38:
+  test-py310:
     <<: *test-steps
     docker:
-      - image: circleci/python:3.8
+      - image: circleci/python:3.10
     environment:
-      TOXENV: py38
+      TOXFACTOR: py310
 
-  test-py37:
+  test-py311:
     <<: *test-steps
     docker:
-      - image: circleci/python:3.7
+      - image: circleci/python:3.11
     environment:
-      TOXENV: py37
+      TOXFACTOR: py311
 
-  test-py36:
+  test-py312:
     <<: *test-steps
     docker:
-      - image: circleci/python:3.6
+      - image: circleci/python:3.13
     environment:
-      TOXENV: py36
+      TOXFACTOR: py313
 
-  test-py35:
+  test-py313:
     <<: *test-steps
     docker:
-      - image: circleci/python:3.5
+      - image: circleci/python:3.13
     environment:
-      TOXENV: py35
+      TOXFACTOR: py313
 
 
 workflows:
@@ -84,15 +84,19 @@ workflows:
           requires:
             - lint
 
-      - test-py37:
+      - test-py310:
           requires:
             - lint
 
-      - test-py36:
+      - test-py311:
           requires:
             - lint
 
-      - test-py35:
+      - test-py312:
+          requires:
+            - lint
+
+      - test-py313:
           requires:
             - lint
 
