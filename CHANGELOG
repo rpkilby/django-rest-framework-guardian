@@ -1,6 +1,10 @@
 Unreleased
 ==========
 
+- Set Python version support to 3.10 through 3.13
+- Set Django version support to 4.2 through 5.2
+- Modernize packaging to use `pyproject.toml`
+
 0.3.0 (2019-08-01)
 ==================
 
