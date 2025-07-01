@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "djangorestframework-guardian"
-version = "0.3.0"
+version = "0.4.0"
 
 dependencies = [
     "django",
