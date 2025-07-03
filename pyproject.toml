@@ -44,11 +44,9 @@ Changelog = "https://github.com/rpkilby/django-rest-framework-guardian/blob/mast
 [tool.setuptools.packages.find]
 where = ["src"]
 
-[tool.coverage.paths]
-source = ["src/"]
-
 [tool.coverage.run]
 branch = true
+include = ["src/*", "tests/*"]
 
 [tool.coverage.report]
 show_missing = true
