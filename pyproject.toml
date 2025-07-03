@@ -8,7 +8,7 @@ name = "djangorestframework-guardian"
 version = "0.4.0"
 
 dependencies = [
-    "django",
+    "django >= 4.2",
     "djangorestframework",
     "django-guardian",
 ]
