@@ -14,7 +14,8 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.13"]
-        toxenv: ["lint", "dist"]
+        toxenv: ["lint", "dist", "warnings"]
+    continue-on-error: ${{ matrix.toxenv == 'warnings' }}
 
     steps:
       - uses: actions/checkout@v4
