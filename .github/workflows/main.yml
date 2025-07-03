@@ -53,7 +53,10 @@ jobs:
         run: python -m pip install tox "coverage[toml]"
 
       - name: Run tests (${{ matrix.python-version }})
-        run: tox run -f $(echo py${{ matrix.python-version }} | tr -d .)
+        run: tox run-parallel -f $(echo py${{ matrix.python-version }} | tr -d .)
+
+      - name: Combine coverage
+        run: coverage combine
 
       - name: Upload coverage
         uses: codecov/codecov-action@v5

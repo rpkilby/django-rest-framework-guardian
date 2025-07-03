@@ -57,18 +57,6 @@ class ObjectPermissionListView(generics.ListAPIView):
 object_permissions_list_view = ObjectPermissionListView.as_view()
 
 
-class GetQuerysetObjectPermissionInstanceView(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = BasicPermSerializer
-    authentication_classes = [authentication.BasicAuthentication]
-    permission_classes = [ViewObjectPermissions]
-
-    def get_queryset(self):
-        return BasicPermModel.objects.all()
-
-
-get_queryset_object_permissions_view = GetQuerysetObjectPermissionInstanceView.as_view()
-
-
 class ObjectPermissionsIntegrationTests(TestCase):
     """
     Integration tests for the object level permissions API.

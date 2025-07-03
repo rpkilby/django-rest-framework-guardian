@@ -25,6 +25,12 @@ class BasicSerializer(ObjectPermissionsAssignmentMixin, serializers.ModelSeriali
         }
 
 
+class InvalidSerializer(ObjectPermissionsAssignmentMixin, serializers.ModelSerializer):
+    class Meta:
+        model = BasicModel
+        fields = '__all__'
+
+
 class ObjectPermissionsAssignmentIntegrationTests(TestCase):
     """
     Integration tests for the object level permissions assignment API.
@@ -88,17 +94,24 @@ class ObjectPermissionsAssignmentImplementationTests(TestCase):
         serializer.is_valid(raise_exception=True)
         self.assertIsInstance(serializer.save(), BasicModel)
 
+    def test_get_permissions_not_implemented(self):
+        serializer = InvalidSerializer(data={'text': 'test'})
+        serializer.is_valid(raise_exception=True)
+
+        with self.assertRaises(NotImplementedError):
+            serializer.save()
+
     def test_get_permissions_map_error_message(self):
         error_message = (
-            'Expected InvalidSerializer.get_permissions_map '
+            'Expected InvalidMappingSerializer.get_permissions_map '
             'to return a dict, got list instead.'
         )
 
-        class InvalidSerializer(BasicSerializer):
+        class InvalidMappingSerializer(InvalidSerializer):
             def get_permissions_map(self, created):
                 return []
 
-        serializer = InvalidSerializer(data={'text': 'test'})
+        serializer = InvalidMappingSerializer(data={'text': 'test'})
         serializer.is_valid(raise_exception=True)
 
         with self.assertRaisesMessage(AssertionError, error_message):
